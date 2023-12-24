@@ -1,0 +1,59 @@
+Mpanamboatra poketra => Taille, matière ampiasaina, type(sac à dos, sac à mains,...), look(luxe/normal/debraille), misy vidiny
+	Regle de gestion :
+		1) Manamboatra : temps perdu dépend de la taille, du type, du look
+		2) Matiere ampiasaina => dépend du look
+		3) Matière première lany : mi dépendre an'le taille an'ilay poketra
+
+	Output :
+		Page de liste en fonction du look
+
+Meuble => volume, fitaovana ampiasaina aminy, categorie(seza, latabatra, lit), style(royale, scandinave, boème, contemporain), vidiny
+	Regle de gestion :
+		1) Durée de fanamboarana dépendre taille, catégorie, style
+		2) Quantite laniana : miankina am volume, style, catégorie
+		3) Matière ampiasaina : mi dépendre an'le style an'ilay immeuble
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Voyage organisée => durée, activité, categorie_lieu(regionale, locale, internationale), bouquet(premium, decouverte), prix_par_personne
+	
+		1) Activité mi dépendre an'ilay bouquet =>
+		2) Durée activité => dépendre durée totale, bouquet, lieu, categorie de lieu
+		3) Notion de étoile => Voyage iray manana nbEtoile     nbEtoile => dépendre bouquet, durée_voyage
+
+	Output : liste d'activité par bouquet
+
+
+
+
+Classes :
+	- Bouquet :
+		- String id
+
+
+
+
+
+
+
+
+
+
+
+
+
+
