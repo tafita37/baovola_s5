@@ -1,0 +1,8 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "WEB-INF/lib/AnaëlGenTxUtils.jar",
+        "WEB-INF/lib/Framework.jar",
+        "WEB-INF/lib/postgresql-42.5.0.jar"
+    ]
+}
