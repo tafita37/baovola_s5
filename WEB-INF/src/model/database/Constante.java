@@ -2,7 +2,7 @@ package model.database;
 
 public class Constante {
     static String user="postgres";
-    static String mdp="AnaTaf37";
+    static String mdp="postgres";
     static String database="baovola_s5";
     public Constante() {
     }
