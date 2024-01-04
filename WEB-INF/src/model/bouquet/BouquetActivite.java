@@ -76,7 +76,7 @@ public class BouquetActivite {
         if(this.getBouquet()==null) {
             throw new Exception("Veuillez entrer un bouquet");
         }
-        if(dateBouquetActivite.before(this.getActivite().getDateCreation())||dateBouquetActivite.before(this.getBouquet().getDateCreation())) {
+        if(dateBouquetActivite.compareTo(this.getActivite().getDateCreation())<0||dateBouquetActivite.compareTo(this.getBouquet().getDateCreation())<0) {
             throw new Exception("Date d'ajout de bouquet activite invalide");
         }
         this.dateBouquetActivite = dateBouquetActivite;

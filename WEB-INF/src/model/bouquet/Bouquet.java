@@ -88,7 +88,7 @@ public class Bouquet {
         this.listeBouquetActivite=new BouquetActivite[listeBouquetActivite.length];
         for(int i=0; i<listeBouquetActivite.length; i++) {
             BouquetActivite bouquetActivite=(BouquetActivite) listeBouquetActivite[i];
-            if(bouquetActivite.getDateBouquetActivite().compareTo(this.getDateCreation())<=0) {
+            if(bouquetActivite.getDateBouquetActivite().compareTo(this.getDateCreation())<0) {
                 throw new Exception("Date d'ajout de bouquet activite invalide");
             }
             this.listeBouquetActivite[i]=bouquetActivite;
