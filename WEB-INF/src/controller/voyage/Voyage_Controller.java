@@ -105,7 +105,7 @@ public class Voyage_Controller {
 
     @Parameters(args = {"prix_min", "prix_max"})
     @Url(link = "listeVoyageByPrix.htm")
-    public ModelView getListeVoyageByPrix( String prix_min, String prix_max)
+    public ModelView getListeVoyageByPrix(@DefaultParameter(defaultValue = "0") String prix_min, @DefaultParameter(defaultValue = "0") String prix_max)
     throws Exception {
         ModelView result=new ModelView("web/static/header.jsp", "web/pages/listeVoyageByPrix.jsp", "web/static/footer.jsp");
         Connection con=ConnexionBdd.connexionPostgress(Constante.getUser(), Constante.getMdp(), Constante.getDatabase());
