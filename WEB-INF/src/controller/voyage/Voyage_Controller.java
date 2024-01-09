@@ -102,4 +102,20 @@ public class Voyage_Controller {
         }
         return result;
     }
+
+    @Parameters(args = {"id_activite"})
+    @Url(link = "listeVoyageByPrix.htm")
+    public ModelView getListeVoyageByPrix( String prix_min, String prix_max)
+    throws Exception {
+        ModelView result=new ModelView("web/static/header.jsp", "web/pages/listeVoyageByPrix.jsp", "web/static/footer.jsp");
+        Connection con=ConnexionBdd.connexionPostgress(Constante.getUser(), Constante.getMdp(), Constante.getDatabase());
+        try {
+            
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
+        }
+        return result;
+    }
 }
