@@ -23,7 +23,7 @@
                             <div class="tab-content" id="v-pills-tabContent">
 
                                 <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
-                                    <form action="listeVoyageByActivite.htm" class="search-property-1" method="post">
+                                    <form action="listeVoyageByPrix.htm" class="search-property-1" method="post">
                                         <div class="row no-gutters">
 
                                             <div class="col-md d-flex">
