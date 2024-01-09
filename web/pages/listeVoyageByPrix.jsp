@@ -1,8 +1,7 @@
 <%@page import="model.activite.*"%>
 <%@page import="model.voyage.*"%>
 <%
-    Object[] listeActivite=(Object[]) request.getAttribute("allActivite");
-    VoyageActivite[] allVoyageActivite=(VoyageActivite[]) request.getAttribute("voyage");
+    
 %>
 
 <section class="ftco-section ftco-no-pb ftco-no-pt">
@@ -140,7 +139,7 @@
     <section class="ftco-section">
         <div class="container">
             <div class="row">
-                <%
+                <%-- <%
                     for(int i=0; i<allVoyageActivite.length; i++) {
                         %>      
                         <div class="col-md-4 ftco-animate">
@@ -163,7 +162,7 @@
                             </div>
                         </div>
                     <% }
-                %>
+                %> --%>
             </div>
             <a href="newActivite.htm" class="btn btn-warning">Nouvelle activite</a>
             <a href="newVoyage.htm" class="btn btn-warning">Nouveau Voyage</a>
