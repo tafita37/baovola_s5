@@ -10,13 +10,15 @@
                         <input type="text" class="form-control" placeholder="Nom de l'activite" name="nom_activite">
                     </div>
                     <div class="form-group">
+                        <input type="number" class="form-control" placeholder="Prix de l'activite" name="prix_activite">
+                    </div>
+                    <div class="form-group">
                         <input type="date" class="form-control" placeholder="Date de creation" name="date_creation">
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Inserer" class="btn btn-primary py-3 px-5">
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
