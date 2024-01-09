@@ -2,7 +2,10 @@ package model.voyage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import bdd.BddObject;
 import database.ConnexionBdd;
@@ -102,4 +105,43 @@ public class VoyageActivite {
             throw e;
         }
     }
+
+    public static VoyageActivite[] findVoyageByPrix(Connection con, double prix_min, double prix_max) 
+    throws Exception {
+        List<VoyageActivite> voyagesActivite = new ArrayList<>();
+        boolean jAiOuvert=false;
+        if(con==null) {
+            jAiOuvert=true;
+            con=ConnexionBdd.connexionPostgress(Constante.getUser(), Constante.getMdp(), Constante.getDatabase());
+        }
+        String query = "SELECT * FROM v_voyage_activite WHERE prix_total >= ? and prix_total <= ?";
+        try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
+            preparedStatement.setDouble(1, prix_min);
+            preparedStatement.setDouble(2, prix_max);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String idVoyage = resultSet.getString("id_voyage");
+                    String typeDuree = resultSet.getString("id_type_duree");
+                    int nbActivite=resultSet.getInt("nb_activite");
+
+                    Voyage voyage = Voyage.findVoyageById(con, idVoyage);
+                    VoyageActivite voyageActivite=new VoyageActivite(voyage, (TypeDuree) BddObject.findById(con, TypeDuree.class, typeDuree, Constante.getUser(), Constante.getMdp(), Constante.getDatabase()), (Activite) BddObject.findById(con, Activite.class, resultSet.getString("id_activite"), Constante.getUser(), Constante.getMdp(), Constante.getDatabase()), nbActivite);
+                    voyagesActivite.add(voyageActivite);
+                }
+                resultSet.close();
+            }
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw e;  
+        } finally {
+            if(jAiOuvert) {
+                con.close();
+            }
+        }
+
+        return voyagesActivite.toArray(new VoyageActivite[0]);
+    }
+
+
 }

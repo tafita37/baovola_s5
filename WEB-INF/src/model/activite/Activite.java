@@ -11,22 +11,26 @@ public class Activite {
     @PrimaryKey
     @FieldMapping(columnName = "id_activite")
     String idActivite;
+    @FieldMapping(columnName = "prix_activite")
+    double prixActivite;
     @FieldMapping(columnName = "nom_activite")
     String nomActivite;
     @FieldMapping(columnName = "date_creation")
     Date dateCreation;
 
-    public Activite(String nomActivite, Date dateCreation)
+    public Activite(String nomActivite, double prixActivite, Date dateCreation)
     throws Exception {
         this.setNomActivite(nomActivite);
         this.setDateCreation(dateCreation);
+        this.setPrixActivite(prixActivite);
     }
 
-    public Activite(String idActivite, String nomActivite, Date dateCreation)
+    public Activite(String idActivite, String nomActivite, double prixActivite, Date dateCreation)
     throws Exception {
         this.setIdActivite(idActivite);
         this.setNomActivite(nomActivite);
         this.setDateCreation(dateCreation);
+        this.setPrixActivite(prixActivite);
     }
 
     public Activite() {
@@ -58,6 +62,14 @@ public class Activite {
             throw new Exception("Veuillez entrer un nom de activite");
         }
         this.nomActivite = nomActivite;
+    }
+
+    public void setPrixActivite(double prixActivite)
+    throws Exception {
+        if(prixActivite<=0) {
+            throw new Exception("Veuillez entrer un prix de activite");
+        }
+        this.prixActivite = prixActivite;
     }
 
     public Date getDateCreation() {

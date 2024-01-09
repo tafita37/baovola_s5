@@ -40,11 +40,11 @@ public class Activite_Controller {
     }
 
     @Url(link = "traitementNewActivite.htm")
-    @Parameters(args = {"nom_activite", "date_creation"})
-    public ModelView newActivite(String nom_activite, Date date_creation) 
+    @Parameters(args = {"nom_activite", "date_creation", "prix_activite"})
+    public ModelView newActivite(String nom_activite, String prix_activite, Date date_creation) 
     throws Exception {
         ModelView result=new ModelView();
-        Activite activite=new Activite(nom_activite, date_creation);
+        Activite activite=new Activite(nom_activite, Double.parseDouble(prix_activite), date_creation);
         BddObject.insert(null, activite, Constante.getUser(), Constante.getMdp(), Constante.getDatabase());
         result.setUrlRedirect("listeActivite.htm");
         return result;
