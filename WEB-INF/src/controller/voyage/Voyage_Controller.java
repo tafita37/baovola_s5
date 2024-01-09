@@ -103,7 +103,7 @@ public class Voyage_Controller {
         return result;
     }
 
-    @Parameters(args = {"id_activite"})
+    @Parameters(args = {"prix_min", "prix_max"})
     @Url(link = "listeVoyageByPrix.htm")
     public ModelView getListeVoyageByPrix( String prix_min, String prix_max)
     throws Exception {
