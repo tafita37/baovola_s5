@@ -38,6 +38,8 @@
 					<li class="nav-item"><a href="newVoyageActivite.htm" class="nav-link">Voyage Activite</a></li>
 					<li class="nav-item"><a href="newCategorie.htm" class="nav-link">Nouvelle categorie de lieu</a></li>
 					<li class="nav-item"><a href="listeVoyageByActivite.htm" class="nav-link">Voyages/Activite</a></li>
+					<li class="nav-item"><a href="listeVoyageByPrix.htm" class="nav-link">Voyages Par Prix</a></li>
+
 				</ul>
 			</div>
 		</div>
