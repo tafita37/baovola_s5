@@ -18,7 +18,8 @@
             id_activite varchar(20) primary key,
             nom_activite varchar(30) unique,
             -- duree_heure int,
-            date_creation date
+            date_creation date,
+            prix_activite double precision
         );
 
     -- Activite et bouquet

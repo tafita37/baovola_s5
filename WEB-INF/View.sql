@@ -1,0 +1,2 @@
+-- Voyage et activite
+    create or replace view v_voyage_activite as select voyage_activite.*, activite.nom_activite, activite.date_creation, activite.prix_activite, activite.prix_activite*voyage_activite.nb_activite as prix_total from voyage_activite join activite on activite.id_activite=voyage_activite.id_activite;
