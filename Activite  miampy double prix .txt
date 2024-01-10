@@ -1,0 +1,17 @@
+Activite  miampy double prix :
+
+
+VoyageActivite :
+	- VoyageActivite[] getListeActiviteEntreDeuxPrix(Connection con, double prix1, double prix2, String idVoyage)
+
+
+table activite miampy prix
+
+Vue : v_voyage_activite
+
+- Affichage liste
+- Rajouter un champ prix à la table activite
+- Créer la view v_voyage_activite
+- Rajouter un double prix à Activite
+- Rajouter une fonction VoyageActivite[] getListeActiviteEntreDeuxPrix(Connection con, double prix1, double prix2, String idVoyage)
+- Intégration
