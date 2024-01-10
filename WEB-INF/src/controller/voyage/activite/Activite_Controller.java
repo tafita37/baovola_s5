@@ -40,11 +40,19 @@ public class Activite_Controller {
     }
 
     @Url(link = "traitementNewActivite.htm")
+<<<<<<< Updated upstream
     @Parameters(args = {"nom_activite", "date_creation"})
     public ModelView newActivite(String nom_activite, Date date_creation) 
     throws Exception {
         ModelView result=new ModelView();
         Activite activite=new Activite(nom_activite, date_creation);
+=======
+    @Parameters(args = {"nom_activite", "prix_activite", "date_creation"})
+    public ModelView newActivite(String nom_activite, double prix_activite, Date date_creation) 
+    throws Exception {
+        ModelView result=new ModelView();
+        Activite activite=new Activite(nom_activite, prix_activite, date_creation);
+>>>>>>> Stashed changes
         BddObject.insert(null, activite, Constante.getUser(), Constante.getMdp(), Constante.getDatabase());
         result.setUrlRedirect("listeActivite.htm");
         return result;

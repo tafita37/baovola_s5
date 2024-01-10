@@ -1,0 +1,6 @@
+Voyage organisée
+
+- Caractérisée par la durée (court séjour, long séjour, moyen) => miova2 
+- Formule de composition de voyage(activité iray/maro2) => Voyage local prémium(pic nic, visite musée, quad) en fonction de la durée du séjour ny nombre d'activité	
+
+Sortie : Liste de voyage par activité
