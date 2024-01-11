@@ -19,6 +19,8 @@ public class Voyage {
     private String idVoyage;
     private CategorieLieu categorieLieu;
     private Bouquet bouquet;
+    VoyageActivite[] listeVoyageActivite;
+    double prixTotalActivite;
 
     public Voyage(String idVoyage, CategorieLieu categorieLieu, Bouquet bouquet)
     throws Exception {
@@ -64,6 +66,7 @@ public class Voyage {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     result=new Voyage(resultSet.getString("id_voyage"), (CategorieLieu) BddObject.findById(con, CategorieLieu.class, resultSet.getString("id_categorie_lieu"), Constante.getUser(), Constante.getMdp(), Constante.getDatabase()), (Bouquet) BddObject.findById(con, Bouquet.class, resultSet.getString("id_bouquet"), Constante.getUser(), Constante.getMdp(), Constante.getDatabase()));
+                    result.setListeVoyageActivite(result.findVoyageActiviteByIdVoyage(con));
                 }
                 resultSet.close();
             }
@@ -98,6 +101,40 @@ public class Voyage {
 
                     Voyage voyage = Voyage.findVoyageById(con, idVoyage);
                     VoyageActivite voyageActivite=new VoyageActivite(voyage, (TypeDuree) BddObject.findById(con, TypeDuree.class, typeDuree, Constante.getUser(), Constante.getMdp(), Constante.getDatabase()), (Activite) BddObject.findById(con, Activite.class, idActivite, Constante.getUser(), Constante.getMdp(), Constante.getDatabase()), nbActivite);
+                    voyagesActivite.add(voyageActivite);
+                }
+                resultSet.close();
+            }
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw e;  
+        } finally {
+            if(jAiOuvert) {
+                con.close();
+            }
+        }
+
+        return voyagesActivite.toArray(new VoyageActivite[0]);
+    }
+
+    public VoyageActivite[] findVoyageActiviteByIdVoyage(Connection con) 
+    throws Exception {
+        List<VoyageActivite> voyagesActivite = new ArrayList<>();
+        boolean jAiOuvert=false;
+        if(con==null) {
+            jAiOuvert=true;
+            con=ConnexionBdd.connexionPostgress(Constante.getUser(), Constante.getMdp(), Constante.getDatabase());
+        }
+        String query = "SELECT * FROM voyage_activite WHERE id_voyage = ?";
+        try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
+            preparedStatement.setInt(1, Integer.valueOf(this.getIdVoyage()));
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String typeDuree = resultSet.getString("id_type_duree");
+                    int nbActivite=resultSet.getInt("nb_activite");
+                    String idActivite=resultSet.getString("id_activite");
+                    VoyageActivite voyageActivite=new VoyageActivite(this, (TypeDuree) BddObject.findById(con, TypeDuree.class, typeDuree, Constante.getUser(), Constante.getMdp(), Constante.getDatabase()), (Activite) BddObject.findById(con, Activite.class, idActivite, Constante.getUser(), Constante.getMdp(), Constante.getDatabase()), nbActivite);
                     voyagesActivite.add(voyageActivite);
                 }
                 resultSet.close();
@@ -213,6 +250,55 @@ public class Voyage {
 
     public String getNomVoyage() {
         return "Voyage "+this.getBouquet().getNomBouquet()+" "+this.getCategorieLieu().getNomCategorieLieu();
+    }
+
+    public static Voyage[] findVoyageByPrix(Connection con, double prix_min, double prix_max) 
+    throws Exception {
+        List<Voyage> voyagesActivite = new ArrayList<>();
+        boolean jAiOuvert=false;
+        if(con==null) {
+            jAiOuvert=true;
+            con=ConnexionBdd.connexionPostgress(Constante.getUser(), Constante.getMdp(), Constante.getDatabase());
+        }
+        String query = "SELECT * FROM v_voyage_activite_prix_total WHERE prix_total >= ? and prix_total <= ?";
+        try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
+            preparedStatement.setDouble(1, prix_min);
+            preparedStatement.setDouble(2, prix_max);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Voyage voyage = Voyage.findVoyageById(con, resultSet.getString("id_voyage"));
+                    voyage.setPrixTotalActivite(resultSet.getDouble("prix_total"));
+                    voyagesActivite.add(voyage);
+                }
+                resultSet.close();
+            }
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw e;  
+        } finally {
+            if(jAiOuvert) {
+                con.close();
+            }
+        }
+
+        return voyagesActivite.toArray(new Voyage[0]);
+    }
+
+    public VoyageActivite[] getListeVoyageActivite() {
+        return listeVoyageActivite;
+    }
+
+    public void setListeVoyageActivite(VoyageActivite[] listeVoyageActivite) {
+        this.listeVoyageActivite = listeVoyageActivite;
+    }
+
+    public double getPrixTotalActivite() {
+        return prixTotalActivite;
+    }
+
+    public void setPrixTotalActivite(double prixTotalActivite) {
+        this.prixTotalActivite = prixTotalActivite;
     }
 
     

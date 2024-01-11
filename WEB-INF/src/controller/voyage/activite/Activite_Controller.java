@@ -10,6 +10,7 @@ import bdd.BddObject;
 import model.database.ConnexionBdd;
 import model.database.Constante;
 import model.activite.Activite;
+import model.activite.ActivitePrix;
 import model.bouquet.Bouquet;
 import model.bouquet.BouquetActivite;
 import url.ModelView;
@@ -19,6 +20,33 @@ public class Activite_Controller {
     public ModelView formActivite()
     throws Exception {
         ModelView result=new ModelView("web/static/header.jsp", "web/pages/formActivite.jsp", "web/static/footer.jsp");
+        return result;
+    }
+
+    @Url(link = "formPrixActivite.htm")
+    public ModelView formActivitePrix()
+    throws Exception {
+        ModelView result=new ModelView("web/static/header.jsp", "web/pages/formPrixActivite.jsp", "web/static/footer.jsp");
+        result.addItem("allActivite", BddObject.selectAllFromBdd(null, Activite.class, Constante.getUser(), Constante.getMdp(), Constante.getDatabase()));
+        return result;
+    }
+
+    @Url(link = "traitementNewPrixActivite.htm")
+    @Parameters(args = {"id_activite", "prix_activite", "date_prix_activite"})
+    public ModelView newActivitePrix(String idActivite, double prixActivite, Date datePrixActivite)
+    throws Exception {
+        ModelView result=new ModelView();
+        Connection con=ConnexionBdd.connexionPostgress(Constante.getUser(), Constante.getMdp(), Constante.getDatabase());
+        try {
+            Activite activite = (Activite) BddObject.findById(con, Activite.class, idActivite, Constante.getUser(), Constante.getMdp(), Constante.getDatabase());
+            ActivitePrix activitePrix=new ActivitePrix(activite, prixActivite, datePrixActivite);
+            activitePrix.newActivitePrix(con);
+            result.setUrlRedirect("formPrixActivite.htm"); 
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
+        }
         return result;
     }
 
@@ -40,19 +68,11 @@ public class Activite_Controller {
     }
 
     @Url(link = "traitementNewActivite.htm")
-<<<<<<< Updated upstream
     @Parameters(args = {"nom_activite", "date_creation"})
     public ModelView newActivite(String nom_activite, Date date_creation) 
     throws Exception {
         ModelView result=new ModelView();
         Activite activite=new Activite(nom_activite, date_creation);
-=======
-    @Parameters(args = {"nom_activite", "prix_activite", "date_creation"})
-    public ModelView newActivite(String nom_activite, double prix_activite, Date date_creation) 
-    throws Exception {
-        ModelView result=new ModelView();
-        Activite activite=new Activite(nom_activite, prix_activite, date_creation);
->>>>>>> Stashed changes
         BddObject.insert(null, activite, Constante.getUser(), Constante.getMdp(), Constante.getDatabase());
         result.setUrlRedirect("listeActivite.htm");
         return result;

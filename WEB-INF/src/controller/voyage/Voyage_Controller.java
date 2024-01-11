@@ -95,6 +95,7 @@ public class Voyage_Controller {
         try {
             result.addItem("allActivite", BddObject.selectAllFromBdd(con, Activite.class, Constante.getUser(), Constante.getMdp(), Constante.getDatabase()));
             result.addItem("voyage", Voyage.findVoyageByIdActivite(con, idActivite));
+            result.addItem("activite", (Activite) BddObject.findById(con, Activite.class, idActivite, Constante.getUser(), Constante.getMdp(), Constante.getDatabase()));
         } catch (Exception e) {
             throw e;
         } finally {
@@ -102,8 +103,6 @@ public class Voyage_Controller {
         }
         return result;
     }
-<<<<<<< Updated upstream
-=======
 
     @Parameters(args = {"prix_min", "prix_max"})
     @Url(link = "listeVoyageByPrix.htm")
@@ -113,7 +112,7 @@ public class Voyage_Controller {
         Connection con=ConnexionBdd.connexionPostgress(Constante.getUser(), Constante.getMdp(), Constante.getDatabase());
         try {
             result.addItem("allActivite", BddObject.selectAllFromBdd(con, Activite.class, Constante.getUser(), Constante.getMdp(), Constante.getDatabase()));
-            result.addItem("voyage", VoyageActivite.findVoyageByPrix(con, Integer.parseInt(prix_min),Integer.parseInt(prix_max)));
+            result.addItem("voyage", Voyage.findVoyageByPrix(con, Integer.parseInt(prix_min),Integer.parseInt(prix_max)));
         } catch (Exception e) {
             throw e;
         } finally {
@@ -121,5 +120,4 @@ public class Voyage_Controller {
         }
         return result;
     }
->>>>>>> Stashed changes
 }
