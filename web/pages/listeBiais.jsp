@@ -1,10 +1,10 @@
 <%@page import="model.bouquet.*"%>
-<%@page import="model.bouquet.*"%>
+<%@page import="model.activite.*"%>
+<%@page import="model.biais.*"%>
 <%
-    Bouquet bouquet = (Bouquet) request.getAttribute("bouquet");
-    Object[] allBouquet=(Object[]) request.getAttribute("allBouquet");
+    Object[] listeActivite=(Object[]) request.getAttribute("allActivite");
+    Biais biais=(Biais) request.getAttribute("biais");
 %>
-
 <section class="ftco-section ftco-no-pb ftco-no-pt">
     <div class="container">
         <div class="row">
@@ -14,7 +14,6 @@
                         <div class="col-md-12 nav-link-wrap">
                             <div class="nav nav-pills text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 <a class="nav-link active mr-md-1" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Search Tour</a>
-
                                 <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Hotel</a>
 
                             </div>
@@ -32,25 +31,20 @@
                                                     <div class="form-field">
                                                         <div class="select-wrap">
                                                             <div class="icon"><span class="fa fa-chevron-down"></span></div>
-                                                            <select name="id_bouquet" id="" class="form-control">
+                                                            <select name="id_activite" id="" class="form-control">
                                                                 <option value="">
-                                                                    Choisissez un bouquet
+                                                                    Choisissez une activite
                                                                 </option>
                                                                 <%
-                                                                    for(int i=0; i<allBouquet.length; i++) {
-                                                                        Bouquet bouquets=(Bouquet) allBouquet[i];
-                                                                        if(bouquets.getIdBouquet().compareTo(bouquets.getIdBouquet())==0) {
+                                                                    for(int i=0; i<listeActivite.length; i++) {
+                                                                        Activite activite=(Activite) listeActivite[i];
+                                                                        %>
+                                                                        <option value="">
+                                                                            <%
+                                                                                out.println(activite.getNomActivite());
                                                                             %>
-                                                                            <option selected value=<% out.println(bouquets.getIdBouquet()); %>>
-                                                                                <% out.println(bouquets.getNomBouquet()); %>
-                                                                            </option>
-                                                                        <% } else {
-                                                                            %>
-                                                                            <option value=<% out.println(bouquets.getIdBouquet()); %>>
-                                                                                <% out.println(bouquets.getNomBouquet()); %>
-                                                                            </option>
-                                                                        <% }
-                                                                    }
+                                                                        </option>
+                                                                    <% }
                                                                 %>
                                                             </select>
                                                         </div>
@@ -144,33 +138,27 @@
 
     <section class="ftco-section">
         <div class="container">
-            <div class="row">
-                <%
-                    if(bouquet!=null&&bouquet.getListeBouquetActivite().length!=0) {
-                        for(int i=0; i<bouquet.getListeBouquetActivite().length; i++) {
-                            %>      
-                            <div class="col-md-4 ftco-animate">
-                                <div class="project-wrap">
-                                    <div class="text p-4">
-                                        <h3>
-                                            <a href="#">
-                                                <%
-                                                    out.println(bouquet.getListeBouquetActivite()[i].getActivite().getNomActivite());
-                                                %>
-                                            </a>
-                                        </h3>
-                                        <p class="location"><span class="fa fa-map-marker"></span> Banaue, Ifugao, Philippines</p>
-                                        <ul>
-                                            <li><span class="flaticon-shower"></span>2</li>
-                                            <li><span class="flaticon-king-size"></span>3</li>
-                                            <li><span class="flaticon-mountains"></span>Near Mountain</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        <% }
-                    }
-                %>
+            <div class="row">    
+                <div class="col-md-4 ftco-animate">
+                    <div class="project-wrap">
+                        <div class="text p-4">
+                            <h3>
+                                <a href="#">
+                                    <%
+                                        out.println(biais.getActivite().getNomActivite());
+                                    %>
+                                </a>
+                            </h3>
+                            <p class="location"><span class="fa fa-map-marker"></span> Banaue, Ifugao, Philippines</p>
+                            <ul>
+                                <li><span class="flaticon-shower"></span>Reste : <% out.println(biais.getResteStock()); %></li>
+                                <li><span class="flaticon-shower"></span>2</li>
+                                <li><span class="flaticon-king-size"></span>3</li>
+                                <li><span class="flaticon-mountains"></span>Near Mountain</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
             <a href="newActivite.htm" class="btn btn-warning">Nouvelle Activite</a>
             <a href="formPrixActivite.htm" class="btn btn-warning">Prix Activite</a>

@@ -2,8 +2,7 @@
 <%@page import="model.voyage.*"%>
 <%
     Object[] listeActivite=(Object[]) request.getAttribute("allActivite");
-    VoyageActivite[] allVoyageActivite=(VoyageActivite[]) request.getAttribute("voyage");
-    
+    Voyage[] allVoyage=(Voyage[]) request.getAttribute("voyage");
 %>
 
 <section class="ftco-section ftco-no-pb ftco-no-pt">
@@ -141,8 +140,8 @@
     <section class="ftco-section">
         <div class="container">
             <div class="row">
-                 <%
-                    for(int i=0; i<allVoyageActivite.length; i++) {
+                <%
+                    for(int i=0; i<allVoyage.length; i++) {
                         %>      
                         <div class="col-md-4 ftco-animate">
                             <div class="project-wrap">
@@ -150,13 +149,13 @@
                                     <h3>
                                         <a href="#">
                                             <%
-                                                out.println(allVoyageActivite[i].getVoyage().getNomVoyage());
+                                                out.println(allVoyage[i].getNomVoyage());
                                             %>
                                         </a>
                                     </h3>
                                     <p class="location"><span class="fa fa-map-marker"></span> Banaue, Ifugao, Philippines</p>
                                     <ul>
-                                        <li><span class="flaticon-shower"></span>Nombre : <% out.println(allVoyageActivite[i].getNbActivite()); %></li>
+                                        <li><span class="flaticon-shower"></span>Prix total des activites : <% out.println(allVoyage[i].getPrixTotalActivite()+" ar"); %> </li>
                                         <!-- <li><span class="flaticon-king-size"></span>3</li>
                                         <li><span class="flaticon-mountains"></span>Near Mountain</li> -->
                                     </ul>
@@ -164,7 +163,7 @@
                             </div>
                         </div>
                     <% }
-                %> 
+                %>
             </div>
             <a href="newActivite.htm" class="btn btn-warning">Nouvelle activite</a>
             <a href="newVoyage.htm" class="btn btn-warning">Nouveau Voyage</a>

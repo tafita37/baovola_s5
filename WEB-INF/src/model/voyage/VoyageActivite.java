@@ -2,7 +2,10 @@ package model.voyage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import bdd.BddObject;
 import database.ConnexionBdd;
@@ -101,5 +104,9 @@ public class VoyageActivite {
         } catch (SQLException e) {
             throw e;
         }
+    }
+
+    public double getPrixTotal() {
+        return this.getNbActivite()*this.getActivite().getDernierPrix().getPrixActivite();
     }
 }

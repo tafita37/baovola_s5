@@ -1,10 +1,15 @@
 package model.activite;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import annotation.FieldMapping;
 import annotation.PrimaryKey;
 import annotation.Table;
+import database.ConnexionBdd;
+import model.database.Constante;
 
 @Table(tableName="activite", idTable = "id_activite", prefixe = "ACT", sequence = "id_activite", nbNumerique = 6)
 public class Activite {
@@ -15,6 +20,7 @@ public class Activite {
     String nomActivite;
     @FieldMapping(columnName = "date_creation")
     Date dateCreation;
+    ActivitePrix dernierPrix;
 
     public Activite(String nomActivite, Date dateCreation)
     throws Exception {
@@ -70,5 +76,41 @@ public class Activite {
             throw new Exception("Veuillez entrer une date de creation d'activite");
         }
         this.dateCreation = dateCreation;
+    }
+
+    public ActivitePrix getLastPrix(Connection con)
+    throws Exception {
+        ActivitePrix result=null;
+        boolean jAiOuvert=false;
+        if(con==null) {
+            jAiOuvert=true;
+            con=ConnexionBdd.connexionPostgress(Constante.getUser(), Constante.getMdp(), Constante.getDatabase());
+        }
+        PreparedStatement preparedStatement=null;
+        ResultSet resultSet=null;
+        try {
+            String sql="select*from v_last_activite_prix where id_activite=?";
+            preparedStatement=con.prepareStatement(sql);
+            preparedStatement.setString(1, this.getIdActivite());
+            resultSet=preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                result=new ActivitePrix(this, resultSet.getDouble("prix_activite"), resultSet.getDate("date_prix_activite"));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if(jAiOuvert) {
+                con.close();
+            }
+        }
+        return result;
+    }
+
+    public ActivitePrix getDernierPrix() {
+        return dernierPrix;
+    }
+
+    public void setDernierPrix(ActivitePrix dernierPrix) {
+        this.dernierPrix = dernierPrix;
     }
 }

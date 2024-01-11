@@ -20,6 +20,15 @@
             -- duree_heure int,
             date_creation date
         );
+        
+    -- Activite prix
+        create table activite_prix(
+            -- id_activite_prix serial primary key,
+            id_activite varchar(20) references activite(id_activite),
+            prix_activite double precision,
+            date_prix_activite date,
+            primary key(id_activite, date_prix_activite)
+        );
 
     -- Activite et bouquet
         create table activite_bouquet(
@@ -64,3 +73,27 @@
         id_type_duree VARCHAR(20) REFERENCES type_duree(id_type_duree),
         PRIMARY KEY (id_voyage, id_activite)
     );
+
+
+-- 11 janvier
+    -- Biais
+        create table biais(
+            id_biais serial primary key, 
+            id_activite varchar(20) references activite(id_activite), 
+            date_biais date
+        );
+
+    -- Biais et mouvement
+		create table biais_mouvement(
+            id_biais int references biais(id_biais), 
+            entree double precision, 
+            sortie double precision, 
+            date_mouvement date
+        );
+
+    -- Voya
+		create table voyage_reservation(
+            id_voyage int references voyage(id_voyage), 
+            nb_personne int, 
+            date_reservation date
+        );

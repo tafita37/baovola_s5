@@ -3,6 +3,7 @@
 <%
     Object[] listeActivite=(Object[]) request.getAttribute("allActivite");
     VoyageActivite[] allVoyageActivite=(VoyageActivite[]) request.getAttribute("voyage");
+    Activite activiteConc = (Activite) request.getAttribute("activite");
 %>
 
 <section class="ftco-section ftco-no-pb ftco-no-pt">
@@ -39,11 +40,18 @@
                                                                 <%
                                                                     for(int i=0; i<listeActivite.length; i++) {
                                                                         Activite activite=(Activite) listeActivite[i];
-                                                                        %>
-                                                                        <option value=<% out.println(activite.getIdActivite()); %>>
-                                                                            <% out.println(activite.getNomActivite()); %>
-                                                                        </option>
-                                                                    <% }
+                                                                        if(activite.getIdActivite().compareTo(activiteConc.getIdActivite())==0) {
+                                                                            %>
+                                                                            <option selected value=<% out.println(activite.getIdActivite()); %>>
+                                                                                <% out.println(activite.getNomActivite()); %>
+                                                                            </option>
+                                                                        <% } else {
+                                                                            %>
+                                                                            <option value=<% out.println(activite.getIdActivite()); %>>
+                                                                                <% out.println(activite.getNomActivite()); %>
+                                                                            </option>
+                                                                        <% }
+                                                                    }
                                                                 %>
                                                             </select>
                                                         </div>
